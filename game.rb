@@ -3,7 +3,6 @@ class ToyRobot
     @moves = moves
     # row value
     @x = x
-
     # column value
     @y = y
     # Face, N, E, S, W
@@ -12,22 +11,22 @@ class ToyRobot
   
   def play
     return "invalid command" if @x < 0 || @x > 4 || @y < 0 || @y > 4
+
     return "invalid command" if @face != @face.upcase || !valid_face?(@face)
+
     @moves.each do |move|
       return "invalid command" if move != move.upcase || !valid_move?(move)
     end
+
     # Moves
     @moves.each_with_index do |move, index|
       if move == "MOVE" and is_valid?(@face, move, @x, @y)
         # move right
         @x = move_right(@x) if @face == "EAST"
-
         # move left
         @x = move_left(@x) if @face == "WEST"
-
         # move down
         @y = move_down(@y) if @face == "SOUTH"
-
         # move up
         @y = move_up(@y) if @face == "NORTH"
       elsif move == "REPORT"
