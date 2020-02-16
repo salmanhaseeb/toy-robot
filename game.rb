@@ -1,5 +1,3 @@
-require 'byebug'
-
 class ToyRobot
   def initialize(moves, x, y, face)
     @moves = moves
@@ -13,6 +11,11 @@ class ToyRobot
   end
   
   def play
+    return "invalid command" if @x < 0 || @x > 4 || @y < 0 || @y > 4
+    return "invalid command" if @face != @face.upcase || !valid_face?(@face)
+    @moves.each do |move|
+      return "invalid command" if move != move.upcase || !valid_move?(move)
+    end
     # Moves
     @moves.each_with_index do |move, index|
       if move == "MOVE" and is_valid?(@face, move, @x, @y)
@@ -109,9 +112,16 @@ def moves
   end
 end
 
+def valid_face?(face)
+  ["NORTH", "EAST", "SOUTH", "WEST"].include?(face)
+end
+
+def valid_move?(move)
+  ["MOVE", "LEFT", "RIGHT", "REPORT"].include?(move)
+end
+
 def main
   data = moves.split("\n")
-  # data = data.split("\n")
   place = data.first
 
   # row value
@@ -124,7 +134,7 @@ def main
   face = place.split(',').last
 
   moves = data.drop(1)
-  
+
   tr = ToyRobot.new(moves, x, y, face)
   tr.play
 end
