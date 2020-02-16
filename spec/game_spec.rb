@@ -2,7 +2,6 @@ require '../game.rb'
 
 describe ToyRobot do 
   context "With valid input" do 
-      
     it "should return 0, 1, NORTH" do 
       tr = ToyRobot.new(["MOVE", "REPORT"], 0, 0, "NORTH")
       expect(tr.play).to eq ({x: 0, y: 1, face: "NORTH"})
@@ -19,7 +18,6 @@ describe ToyRobot do
     end
   end
 
-  # context "With invalid input" do 
   context "With invalid input" do 
     it "should return invalid input" do 
       tr = ToyRobot.new(["MOVE", "REPORT"], 10, 10, "NORTH")
